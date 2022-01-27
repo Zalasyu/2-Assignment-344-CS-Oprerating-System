@@ -11,6 +11,7 @@
 #include <fcntl.h>
 
 #include "movie.h"
+#include "io.h"
 
 #define PREFIX "movies_"
 #define SUFFIX ".csv"
@@ -22,14 +23,19 @@ void createYearlyMovies()
 }
 
 // Check if the file name has the required PREFIX and SUFFIX in its string.
-bool checkPrefixSuffix(char *fileName){
+bool checkPrefixSuffix(char *fileName)
+{
 	char *end = strrchr(fileName, '.');
+	printf("\nThe suffix of this file is: %s\n", end);
+	if (end == NULL){
+		return false;
+	}
 
 	// Compare PREFIX to the first n characters of the file name.
 	if(strncmp(PREFIX, fileName, strlen(PREFIX)) == 0){
 
 		// Compare the last letters of file name to .csv
-		if( strcmp(end, ".csv") == 0){
+		if( strcmp(end, SUFFIX) == 0){
 			return true;
 		}
 	}
@@ -37,24 +43,27 @@ bool checkPrefixSuffix(char *fileName){
 
 }
 
-void findlargestFile()
+void findLargestFile()
 {	
+	DIR *currDir = opendir("."); // Open current directory
+
 	struct stat sb;
 	struct dirent *aDir;
 
-	DIR *currDir = opendir("."); // Open current directory
 
 	unsigned int fileSize = 0;
-	char *currFileName;
+	char currFileName[256];
 
 	unsigned int maxFileSize = 0;
-	char *maxFileName;
+	char maxFileName[256];
 
 	
 
 	while((aDir = readdir(currDir)) != NULL ){
-    currFileName = calloc(strlen(aDir->d_name) + 1, sizeof(char));
-		currFileName = aDir->d_name;
+
+		memset(currFileName, '\0', sizeof(currFileName));
+		strcpy(currFileName, aDir->d_name);
+		printf("\nCurrent File: %s\n", aDir->d_name);
 
 		// Check if current file has "movies_" as the prefix
 		// AND ".csv" as the suffix
@@ -68,23 +77,24 @@ void findlargestFile()
 			// IF the current file is larger than the current max file size recorded,
 			// THEN update the maxFileName variable to the currently largest file.
 			if (fileSize > maxFileSize){
-				maxFileName = calloc(strlen(currFileName) + 1, sizeof(char));
-				maxFileName = currFileName;
+				printf("\nThe current file is %s and its file size is %u\n", currFileName, fileSize);
+				printf("\nThe max file is %s and its file size is %u\n", maxFileName, maxFileSize);
+				memset(maxFileName, '\0', sizeof(maxFileName));
+				strcpy(maxFileName, currFileName);
+				maxFileSize = fileSize;
 
 			}
 		}
-		closedir(currDir);
-		printf("\nNow processing the chosen file named %s\n", maxFileName);
-
-
 	}
+	// Close the directory.
+	closedir(currDir);
+	printf("\nNow processing the chosen file named %s\n", maxFileName);
 
 	return;
 }
 
 void findSmallestFile()
 {
-	struct stat sb;
 	return;
 
 }
