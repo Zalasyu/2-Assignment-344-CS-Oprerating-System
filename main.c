@@ -16,17 +16,31 @@ void levelTwoOfProg(){
 	do {
 		stepTwo();
 		scanf("%i", &input);
+
+		// Option 1: Find the LARGEST file with the extension .csv in the current directory
+		// AND
+		// whose name starts with the prefix 'movies_'
 		if (input == 1 ) {
+			findLargestFile();
 
 
 
+		// Option 2: Find the SMALLEST file with the extension .csv in the current directory
+		// AND
+		// whose name starts with the prefix 'movies_'
 		} else if (input == 2){
+			findSmallestFile();
 
 
-
+		// Option 3: 
+		// 1. Ask user to enter name of file
+		// 2. Check if file exists in current directory, if not then print error message
+		//		AND
+		//		Retry the user with the 3 choices
 		} else if (input == 3){
+			findFileByName();
 
-
+		// User did not enter between 1 and 3.
 		} else{
 
 			outOfRange(3);
@@ -45,13 +59,15 @@ int main(){
 		stepOne();
 		scanf("%i", &input);
 
-		// If user enter 1, then user wants to process a file.
+		// Option 1: User wants to process a file, therefore go into level 2 of program.
 		if (input == 1){
 			levelTwoOfProg();
 
+		// Option 2: Exit program successfully.
 		} else if ( input == 2 ) {
 			return 0;
 
+		// User did not enter between 1 and 2.
 		} else {
 			outOfRange(2);
 

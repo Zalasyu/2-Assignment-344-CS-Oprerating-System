@@ -9,4 +9,4 @@ movies_by_year: $(obj)
 
 .PHONY: clean
 clean:
-		rm -f $(obj) movies
+		rm -f $(obj) movies_by_year
