@@ -9,6 +9,7 @@
 #include <time.h>
 #include <stdbool.h>
 #include <fcntl.h>
+#include <limits.h>
 
 #include "movie.h"
 #include "io.h"
@@ -95,6 +96,52 @@ void findLargestFile()
 
 void findSmallestFile()
 {
+	DIR *currDir = opendir("."); // Open current directory
+
+	struct stat sb;
+	struct dirent *aDir;
+
+
+	unsigned int fileSize = 0;
+	char currFileName[256];
+
+	unsigned int minFileSize = UINT_MAX;
+	char minFileName[256];
+
+	
+
+	while((aDir = readdir(currDir)) != NULL ){
+
+		memset(currFileName, '\0', sizeof(currFileName));
+		strcpy(currFileName, aDir->d_name);
+		printf("\nCurrent File: %s\n", aDir->d_name);
+
+		// Check if current file has "movies_" as the prefix
+		// AND ".csv" as the suffix
+		if (checkPrefixSuffix(currFileName) == true){
+			// Get properties of current file.
+			stat(currFileName, &sb);
+
+			// Get file size of current file.
+			fileSize = (unsigned int)sb.st_size;
+			printf("\nThe current file is %s and its file size is %u\n", currFileName, fileSize);
+
+			// IF the current file is smaller than the current min file size recorded,
+			// THEN update the minFileName variable to the currently largest file.
+			if (fileSize < minFileSize){
+				printf("\nThe current file is %s and its file size is %u\n", currFileName, fileSize);
+				printf("\nThe min file is %s and its file size is %u\n", minFileName, minFileSize);
+				memset(minFileName, '\0', sizeof(minFileName));
+				strcpy(minFileName, currFileName);
+				minFileSize = fileSize;
+
+			}
+		}
+	}
+	// Close the directory.
+	closedir(currDir);
+	printf("\nNow processing the chosen file named %s\n", minFileName);
+
 	return;
 
 }
