@@ -12,6 +12,7 @@
 // Contains flow of program if user chooses and enters 1.
 void levelTwoOfProg(){
 	int input = 0;
+	char str[1000];
 	// A nested do while loop to handle possible error in input in level 2 of program.
 	do {
 		stepTwo();
@@ -38,7 +39,10 @@ void levelTwoOfProg(){
 		//		AND
 		//		Retry the user with the 3 choices
 		} else if (input == 3){
-			findFileByName();
+			promptFileName();
+			scanf("%s", str);
+
+			findFileByName(str);
 
 		// User did not enter between 1 and 3.
 		} else{

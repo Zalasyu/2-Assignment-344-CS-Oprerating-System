@@ -13,6 +13,7 @@
 
 #include "movie.h"
 #include "io.h"
+#include "error_ui.h"
 
 #define PREFIX "movies_"
 #define SUFFIX ".csv"
@@ -146,8 +147,33 @@ void findSmallestFile()
 
 }
 
-void findFileByName(const char *file_name)
+void findFileByName(const char *input)
 {
+	DIR *currDir = opendir("."); // Open current directory
+
+	struct stat sb;
+	struct dirent *aDir;
+	
+	bool res = false;
+
+
+	while((aDir = readdir(currDir)) != NULL){
+		if(strcmp(aDir->d_name, input) == 0){
+			res = true;
+		}
+	}
+	// Close the directory
+	closedir(currDir);
+
+	// IF the file was found
+	if (res){
+		printf("\nNow processing the chosen file named %s\n", input);
+
+	} else {
+		FileDNE(input);
+
+	}
+
 	return;
 
 }

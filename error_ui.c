@@ -11,7 +11,7 @@ void outOfRange(int i)
 	return;
 
 }
-void FileDNE(char *file_name)
+void FileDNE(const char *file_name)
 {
 	printf("\nThe file '%s' does not exist. Please, try again.", file_name);
 	return;

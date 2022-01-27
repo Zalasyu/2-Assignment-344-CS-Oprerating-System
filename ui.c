@@ -52,3 +52,10 @@ void stepTwo(){
 	return;
 
 }
+
+// Prompts user to enter a file name
+void promptFileName()
+{
+	printf("Enter the complete file name: ");
+	return;
+}

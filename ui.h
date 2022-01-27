@@ -4,6 +4,7 @@
 
 void stepOne();
 void stepTwo();
+void promptFileName();
 
 
 #endif
