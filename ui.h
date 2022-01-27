@@ -2,10 +2,8 @@
 #define UI_H_
 
 
-void menuOne();
-void promptOne();
-void menuTwo();
-void promptTwo();
+void stepOne();
+void stepTwo();
 
 
 #endif

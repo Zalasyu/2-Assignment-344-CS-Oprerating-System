@@ -1,4 +1,4 @@
 #!/bin/bash
 make clean
 make
-./asgn2
+./movies_by_year

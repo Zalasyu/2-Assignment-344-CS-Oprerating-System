@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+
 // Prints the first menu choices.
 void menuOne()
 {
@@ -15,6 +16,14 @@ void menuOne()
 void promptOne()
 {
 	printf("\nEnter a choice 1 or 2: ");
+	return;
+
+}
+
+// Encapsulate level one of program's menus and prompts
+void stepOne(){
+	menuOne();
+	promptOne();
 	return;
 
 }
@@ -34,6 +43,12 @@ void menuTwo()
 void promptTwo()
 {
 	printf("\nEnter a choice from 1 to 3: ");
+	return;
+
+}
+void stepTwo(){
+	menuTwo();
+	promptTwo();
 	return;
 
 }
